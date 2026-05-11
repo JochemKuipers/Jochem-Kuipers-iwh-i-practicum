@@ -12,7 +12,7 @@ app.use(express.json());
 const PRIVATE_APP_ACCESS = process.env.HUBSPOT_PRIVATE_APP_ACCESS;
 
 app.get("/", async (req, res) => {
-  const contacts = "https://api.hubspot.com/crm/v3/objects/contacts";
+  const contacts = "https://api.hubapi.com/crm/v3/objects/contacts";
   const headers = {
     Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
     "Content-Type": "application/json",
@@ -36,24 +36,36 @@ app.get("/update-cobj", async (req, res) => {
 });
 
 app.post("/update-cobj", async (req, res) => {
+  const email = req.body.email?.trim();
+  if (!email) {
+    return res.status(400).send("Email is required to upsert by email.");
+  }
   const update = {
-    properties: {
-      email: req.body.email,
-      firstname: req.body.firstname,
-      lastname: req.body.lastname,
-      phone: req.body.phone,
-    },
+    inputs: [
+      {
+        id: email,
+        idProperty: "email",
+        properties: {
+          email,
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          phone: req.body.phone,
+        },
+      },
+    ],
   };
-  const updateContact = `https://api.hubapi.com/crm/v3/objects/contacts/${update}`;
+  const updateContact =
+    "https://api.hubapi.com/crm/v3/objects/contacts/batch/upsert";
   const headers = {
     Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
     "Content-Type": "application/json",
   };
   try {
-    await axios.patch(updateContact, update, { headers });
+    await axios.post(updateContact, update, { headers });
     res.redirect("/");
   } catch (error) {
-    console.error(error);
+    console.error(error.response?.data ?? error.message);
+    res.status(500).send("HubSpot upsert failed; check server logs.");
   }
 });
 
