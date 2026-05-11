@@ -6,6 +6,54 @@ body, * {
     padding: 0;
 }
 
+/* Homepage — custom object table (matches practicum reference layout) */
+body.homepage,
+body.homepage * {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+body.homepage {
+    background: #fff;
+    padding: 1rem 1.25rem;
+}
+
+body.homepage h1 {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+.homepage__actions {
+    margin: 0 0 1rem 0;
+}
+
+.homepage__actions a {
+    color: #0000ee;
+    text-decoration: underline;
+}
+
+.custom-object-table {
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+
+.custom-object-table th,
+.custom-object-table td {
+    border: 1px solid #333;
+    padding: 0.35rem 0.6rem;
+}
+
+.custom-object-table thead th {
+    background: #ffc0cb;
+    font-weight: bold;
+    text-align: center;
+}
+
+.custom-object-table tbody td {
+    font-weight: normal;
+    text-align: left;
+}
+
 h1 {
     margin: 1rem;
 }

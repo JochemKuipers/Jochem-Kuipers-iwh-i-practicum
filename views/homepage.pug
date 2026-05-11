@@ -4,15 +4,19 @@ html
         title= `${title}`
         meta(name="viewport" content="width=device-width, initial-scale=1")
         link(rel="stylesheet", href="/css/style.css")
-    body
+    body.homepage
         h1 Contacts
-        a(href="/update-cobj") Add to this table
-        .table
-            each contact in data
-                .row
-                    h2.row__name #{contact.properties.firstname}  #{contact.properties.lastname}
-                    p.row__email #{contact.properties.email}
-                    p.row__phone #{contact.properties.phone}
-                    .row__actions
-                        a(href="/update-cobj") Update
-                        a(href="/delete-cobj") Delete
+        p.homepage__actions
+            a(href="/update-cobj") Add/Update this table
+        table.custom-object-table
+            thead
+                tr
+                    th Name
+                    th Email
+                    th Phone
+            tbody
+                each contact in data
+                    tr
+                        td #{contact.properties.firstname} #{contact.properties.lastname}
+                        td= contact.properties.email || ""
+                        td= contact.properties.phone || ""
