@@ -1,0 +1,18 @@
+doctype html
+html
+    head
+        title= `${title}`
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="/css/style.css")
+    body
+        h1 Contacts
+        a(href="/update-cobj") Add to this table
+        .table
+            each contact in data
+                .row
+                    h2.row__name #{contact.properties.firstname}  #{contact.properties.lastname}
+                    p.row__email #{contact.properties.email}
+                    p.row__phone #{contact.properties.phone}
+                    .row__actions
+                        a(href="/update-cobj") Update
+                        a(href="/delete-cobj") Delete
