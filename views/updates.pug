@@ -1,0 +1,17 @@
+doctype html
+html
+    head
+        title= `${title}`
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        link(rel="stylesheet", href="/css/style.css")
+    body
+        h1 Update Contact
+        form(action="/update-cobj", method="post")
+            label(for="email") Email
+            input(type="email", name="email", id="email")
+            label(for="name") Name
+            input(type="text", name="name", id="name")
+            label(for="phone_number") Phone Number
+            input(type="text", name="phone_number", id="phone_number")
+            input(type="submit", value="Update")
+        a(href="/") Return to the homepage
